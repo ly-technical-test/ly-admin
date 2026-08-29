@@ -1,0 +1,68 @@
+<div class="customer-list">
+  <div class="customer-list__heading">
+    <h2>Clientes</h2>
+    <p>Consulte os clientes cadastrados para emitir cobranças.</p>
+  </div>
+  <div *ngIf="errorMessage() as message" hlmAlert class="customer-list__error" variant="destructive">
+    <p hlmAlertDescription>{{ message }}</p>
+  </div>
+  <section hlmCard class="customer-list__card">
+    <header hlmCardHeader class="customer-list__toolbar">
+      <div class="search-control">
+        <svg *ngIf="!searching()" solarMagnifierLinear aria-hidden="true"></svg><hlm-spinner *ngIf="searching()"
+          class="search-control__spinner" aria-label="Searching customers" /><input hlmInput
+          class="app-input app-input--leading" type="text" placeholder="Buscar cliente..." aria-label="Search customers"
+          [formControl]="searchControl" (keydown.enter)="searchImmediately()" />
+      </div>
+    </header>
+    <div hlmTableContainer>
+      <table hlmTable class="customers-table">
+        <colgroup>
+          <col class="customers-table__customer-column" />
+          <col class="customers-table__email-column" />
+          <col class="customers-table__document-column" />
+          <col class="customers-table__location-column" />
+        </colgroup>
+        <thead hlmTHead>
+          <tr hlmTr>
+            <th hlmTh>Cliente</th>
+            <th hlmTh>E-mail</th>
+            <th hlmTh>CPF ou CNPJ</th>
+            <th hlmTh>Localidade</th>
+          </tr>
+        </thead>
+        <tbody hlmTBody>
+          <tr *ngIf="loading()" hlmTr>
+            <td hlmTd class="customers-table__state" colspan="4">
+              <hlm-spinner aria-label="Loading customers" /><span>Carregando clientes...</span>
+            </td>
+          </tr>
+          <tr *ngFor="let customer of customers()" hlmTr>
+            <td hlmTd class="customers-table__name"><span class="line-clamp-1">{{ customer.name }}</span></td>
+            <td hlmTd><span class="line-clamp-1">{{ customer.email }}</span></td>
+            <td hlmTd><span class="line-clamp-1">{{ formatCpfCnpj(customer.cpfCnpj) }}</span></td>
+            <td hlmTd><span class="line-clamp-1">{{ customer.address.city }} · {{ customer.address.state }}</span></td>
+          </tr>
+          <tr *ngIf="!loading() && customers().length === 0" hlmTr>
+            <td hlmTd class="customers-table__state" colspan="4">
+              <span>{{
+                search().length > 0 ? 'Nenhum cliente encontrado.' : 'Nenhum cliente cadastrado.'
+                }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <footer hlmCardFooter class="customer-list__footer">
+      <span>{{ total() }} {{ total() === 1 ? 'cliente encontrado' : 'clientes encontrados' }}</span>
+      <div class="table-pagination">
+        <button hlmBtn size="icon-sm" type="button" variant="ghost" [disabled]="page() === 1" aria-label="Previous page"
+          (click)="changePage(page() - 1)"><svg solarAltArrowLeftLinear aria-hidden="true"></svg></button>
+        <span>Página {{ page() }} de {{ totalPages() }}</span>
+        <button hlmBtn size="icon-sm" type="button" variant="ghost" [disabled]="page() === totalPages()"
+          aria-label="Next page" (click)="changePage(page() + 1)"><svg solarAltArrowRightLinear
+            aria-hidden="true"></svg></button>
+      </div>
+    </footer>
+  </section>
+</div>

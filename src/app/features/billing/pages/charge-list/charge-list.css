@@ -1,0 +1,213 @@
+.charge-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+}
+
+.charge-list__heading {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+}
+
+.charge-list__heading h2 {
+  color: var(--color-heading);
+  font-size: var(--font-page-title);
+  font-weight: 700;
+}
+
+.charge-list__heading p {
+  color: var(--color-text-muted);
+  font-size: var(--font-body);
+}
+
+.charge-list__error {
+  align-items: center;
+  border-color: color-mix(in srgb, var(--color-danger) 30%, transparent);
+  color: var(--color-danger);
+  display: flex;
+  justify-content: space-between;
+}
+
+.charge-list__table-card {
+  border-color: var(--color-border-subtle);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-surface);
+  gap: 0;
+  overflow: hidden;
+  padding: 0;
+}
+
+.charge-list__toolbar {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  gap: var(--space-5);
+  justify-content: space-between;
+  padding: var(--space-5) var(--space-6);
+}
+
+.search-control {
+  position: relative;
+  width: min(18rem, 100%);
+}
+
+.search-control__icon {
+  color: var(--color-icon);
+  height: 1.15rem;
+  left: var(--space-3);
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1.15rem;
+  z-index: 1;
+}
+.search-control__spinner {
+  color: var(--color-icon);
+  height: 1.15rem;
+  left: var(--space-3);
+  position: absolute;
+  top: 50%;
+  translate: 0 -50%;
+  width: 1.15rem;
+  z-index: 1;
+}
+
+.filter-group {
+  align-items: center;
+  display: flex;
+  gap: var(--space-1);
+}
+
+.filter-group > svg {
+  color: var(--color-icon);
+  height: 1.125rem;
+  margin-right: var(--space-1);
+  width: 1.125rem;
+}
+
+.filter-group__button--active {
+  background: var(--color-action-soft);
+  color: var(--color-action);
+  font-weight: 600;
+}
+
+.filter-group button {
+  cursor: pointer;
+}
+
+.charges-table {
+  border-top: 1px solid var(--color-border-subtle);
+}
+
+.charges-table th {
+  background: var(--color-surface-muted);
+  color: var(--color-label);
+  font-size: var(--font-label);
+  font-weight: 600;
+  height: 2.75rem;
+  letter-spacing: 0.04em;
+  padding-inline: var(--space-6);
+  text-transform: uppercase;
+}
+
+.charges-table td {
+  color: var(--color-text-muted);
+  height: 4.75rem;
+  padding-inline: var(--space-6);
+}
+
+.customer-cell {
+  align-items: center;
+  display: flex;
+  gap: var(--space-3);
+}
+
+.customer-cell__name,
+.charges-table__amount {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+
+.charges-table__amount {
+  font-variant-numeric: tabular-nums;
+}
+
+.charges-table__state {
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+.charges-table__state hlm-spinner {
+  margin-right: var(--space-2);
+  vertical-align: middle;
+}
+
+.charges-table__state svg {
+  color: var(--color-icon);
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.charges-table__link {
+  text-align: center;
+  white-space: nowrap;
+}
+
+.charges-table__link button svg {
+  height: 1.125rem;
+  width: 1.125rem;
+}
+
+.charges-table__status { text-align: center; }
+.charges-table__method { text-align: center; }
+
+.status-badge--paid {
+  background: var(--color-success-soft);
+  color: var(--color-success);
+}
+
+.status-badge--pending {
+  background: var(--color-warning-soft);
+  color: var(--color-warning);
+}
+
+.charge-list__footer {
+  border-top: 1px solid var(--color-border-subtle);
+  color: var(--color-text-muted);
+  font-size: var(--font-caption);
+  padding: var(--space-4) var(--space-6);
+}
+.charge-list__footer,.table-pagination{align-items:center;display:flex}.charge-list__footer{justify-content:space-between}.table-pagination{gap:var(--space-2)}
+
+@media (max-width: 58rem) {
+  .charge-list__toolbar {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .search-control {
+    width: 100%;
+  }
+
+  .charges-table__description,
+  .charges-table__date,
+  .charges-table__link {
+    display: none;
+  }
+}
+
+@media (max-width: 36rem) {
+  .filter-group {
+    overflow-x: auto;
+  }
+
+  .charges-table th,
+  .charges-table td {
+    padding-inline: var(--space-4);
+  }
+
+  .charges-table__method {
+    display: none;
+  }
+}

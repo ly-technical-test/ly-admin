@@ -1,0 +1,14 @@
+<main class="auth-shell">
+  <section hlmCard class="auth-card">
+    <header hlmCardHeader class="auth-card__header">
+      <img class="auth-card__logo" src="/logo.png" alt="Lytex" />
+      <div class="auth-card__heading">
+        <h1 hlmCardTitle class="auth-card__title">{{ title() }}</h1>
+        <p hlmCardDescription class="auth-card__description">{{ description() }}</p>
+      </div>
+    </header>
+    <div hlmCardContent class="auth-card__content">
+      <ng-content />
+    </div>
+  </section>
+</main>

@@ -1,0 +1,191 @@
+<div class="issue-charge">
+  <div class="issue-charge__heading">
+    <h2>Nova cobrança</h2>
+    <p>Preencha os dados abaixo para emitir uma nova cobrança.</p>
+  </div>
+
+  <div *ngIf="errorMessage() as message" hlmAlert class="issue-charge__alert" variant="destructive">
+    <p hlmAlertDescription>{{ message }}</p>
+  </div>
+
+  <div class="issue-charge__grid">
+    <div class="issue-charge__sections">
+      <section hlmCard class="form-card">
+        <header class="form-card__header">
+          <h3>Dados do cliente</h3>
+        </header>
+        <div class="mode-switch">
+          <button hlmBtn size="sm" type="button" variant="ghost"
+            [class.mode-switch__active]="customerMode() === 'existing'" (click)="setCustomerMode('existing')">
+            Selecionar existente
+          </button>
+          <button hlmBtn size="sm" type="button" variant="ghost" [class.mode-switch__active]="customerMode() === 'new'"
+            (click)="setCustomerMode('new')">
+            Novo cliente
+          </button>
+        </div>
+
+        <div *ngIf="customerMode() === 'existing'" class="form-card__content">
+          <div class="customer-search">
+            <label class="form-label" for="customer-search">Buscar cliente cadastrado</label>
+            <div class="input-with-icon">
+              <svg solarMagnifierLinear aria-hidden="true"></svg>
+              <input hlmInput class="app-input app-input--leading" id="customer-search"
+                placeholder="Nome, e-mail ou CPF/CNPJ" [formControl]="customerSearchControl" />
+            </div>
+            <app-customer-picker-table [customers]="customers()" [total]="customerTotal()"
+              [totalPages]="customerTotalPages()" [loading]="customersLoading()" [page]="customerPage()"
+              [selectedCustomerId]="selectedCustomer()?._id" (pageChange)="changeCustomerPage($event)"
+              (selectCustomer)="selectCustomer($event)" />
+          </div>
+        </div>
+
+        <form *ngIf="customerMode() === 'new'" class="form-card__content form-grid form-grid--customer"
+          [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
+          <app-form-field class="form-grid__full" inputId="customer-name" label="Nome completo ou razão social">
+            <div class="input-with-icon">
+              <svg solarUserLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-name" formControlName="name" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__document relative" inputId="customer-document" label="CPF ou CNPJ">
+            <div class="form-label-action absolute top-0 right-0">
+              <button class="cursor-pointer" type="button" (click)="generateCpf()">
+                Gerar CPF
+              </button>
+            </div>
+            <div class="input-with-icon">
+              <svg solarDocumentTextLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-document" maxlength="18" formControlName="cpfCnpj"
+                (input)="onCpfCnpjInput(customerForm.controls.cpfCnpj.value)" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__email" inputId="customer-email" label="E-mail">
+            <div class="input-with-icon">
+              <svg solarLetterLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-email" type="email" formControlName="email" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__zip" inputId="customer-zip" label="CEP">
+            <div class="input-with-icon">
+              <svg solarMapPointLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-zip" inputmode="numeric" maxlength="9" formControlName="zip"
+                (input)="onZipInput(customerForm.controls.zip.value)" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__city" inputId="customer-city" label="Cidade">
+            <div class="input-with-icon">
+              <svg solarBuildingsLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-city" formControlName="city" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__state" inputId="customer-state" label="Estado">
+            <div class="input-with-icon">
+              <svg solarMapLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-state" maxlength="2" formControlName="state" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__street" inputId="customer-street" label="Rua">
+            <div class="input-with-icon">
+              <svg solarHomeLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-street" formControlName="street" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__number" inputId="customer-number" label="Número">
+            <div class="input-with-icon">
+              <svg solarHomeLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-number" formControlName="number" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__zone" inputId="customer-zone" label="Bairro">
+            <div class="input-with-icon">
+              <svg solarMapLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-zone" formControlName="zone" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__complement" inputId="customer-complement" label="Complemento">
+            <div class="input-with-icon">
+              <svg solarHomeLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-complement" formControlName="complement" />
+            </div>
+          </app-form-field>
+          <div class="form-grid__action">
+            <button hlmBtn type="submit" [disabled]="customerSaving()">
+              {{ customerSaving() ? 'Salvando cliente...' : 'Salvar cliente' }}
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section hlmCard class="form-card">
+        <header class="form-card__header">
+          <h3>Informações da cobrança</h3>
+        </header>
+        <form class="form-card__content form-grid" [formGroup]="chargeForm">
+          <app-form-field inputId="charge-amount" label="Valor"><input hlmInput class="app-input" id="charge-amount"
+              inputmode="decimal" placeholder="0,00" formControlName="amount"
+              (input)="onAmountInput(chargeForm.controls.amount.value)" />
+          </app-form-field>
+          <app-form-field class="form-grid__full" inputId="charge-description" label="Descrição">
+            <textarea hlmInput class="app-input issue-charge__textarea" id="charge-description" rows="6" maxlength="300"
+              formControlName="description"></textarea>
+          </app-form-field>
+        </form>
+      </section>
+
+      <section hlmCard class="form-card">
+        <header class="form-card__header">
+          <h3>Método de pagamento</h3>
+        </header>
+        <div class="form-card__content payment-methods">
+          <button hlmBtn type="button" variant="outline" [class.payment-method--selected]="paymentMethod() === 'boleto'"
+            (click)="setPaymentMethod('boleto')">
+            <svg solarDocumentTextLinear aria-hidden="true"></svg>Boleto
+          </button>
+          <button hlmBtn type="button" variant="outline" [class.payment-method--selected]="paymentMethod() === 'pix'"
+            (click)="setPaymentMethod('pix')">
+            <svg solarQrCodeLinear aria-hidden="true"></svg>PIX
+          </button>
+          <button hlmBtn type="button" variant="outline" [class.payment-method--selected]="paymentMethod() === 'cartao'"
+            (click)="setPaymentMethod('cartao')">
+            <svg solarCard2Linear aria-hidden="true"></svg>Cartão
+          </button>
+          <button hlmBtn type="button" variant="outline" [class.payment-method--selected]="paymentMethod() === 'all'"
+            (click)="setPaymentMethod('all')">
+            <svg solarWalletLinear aria-hidden="true"></svg>Todos
+          </button>
+        </div>
+      </section>
+    </div>
+
+    <aside hlmCard class="summary-card">
+      <h3>Resumo da cobrança</h3>
+      <div *ngIf="selectedCustomer() as customer; else unselectedCustomer" class="summary-card__line">
+        <span>Cliente</span><strong>{{ customer.name }}</strong>
+      </div>
+      <ng-template #unselectedCustomer>
+        <div class="summary-card__line">
+          <span>Cliente</span><strong>Selecione um cliente</strong>
+        </div>
+      </ng-template>
+      <div class="summary-card__line">
+        <span>Método</span><strong>{{
+          paymentMethod() === 'pix'
+          ? 'PIX'
+          : paymentMethod() === 'cartao'
+          ? 'Cartão'
+          : paymentMethod() === 'boleto'
+          ? 'Boleto'
+          : 'Todos'
+          }}</strong>
+      </div>
+      <div class="summary-card__total">
+        <span>Total</span><strong>{{ amountInCents() / 100 | currency: 'BRL' }}</strong>
+      </div>
+      <button hlmBtn type="button" [disabled]="!canIssue() || issueSaving()" (click)="issueCharge()">
+        {{ issueSaving() ? 'Emitindo cobrança...' : 'Emitir cobrança' }}
+      </button>
+      <p *ngIf="issueDisabledReason() as reason" class="summary-card__reason">{{ reason }}</p>
+    </aside>
+  </div>
+</div>

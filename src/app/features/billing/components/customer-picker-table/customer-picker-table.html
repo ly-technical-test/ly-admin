@@ -1,0 +1,48 @@
+<div class="customer-picker">
+  <div *ngIf="loading()" class="customer-picker__loading">
+    <hlm-spinner aria-label="Searching customers" />
+  </div>
+  <div hlmTableContainer>
+    <table hlmTable>
+      <tbody hlmTBody>
+        <tr *ngFor="let customer of customers()" hlmTr class="customer-picker__row" (click)="selectRow(customer)">
+          <td hlmTd>
+            <strong>{{ customer.name }}</strong><span class="customer-picker__email">({{ customer.email }})</span>
+          </td>
+          <td hlmTd class="customer-picker__selection"><hlm-checkbox class="disabled:opacity-100" [checked]="selectedCustomerId() === customer._id" [disabled]="selectedCustomerId() === customer._id" aria-label="Select customer" (click)="$event.stopPropagation()" (checkedChange)="updateSelection(customer, $event)" /></td>
+        </tr>
+        <tr *ngIf="!loading() && customers().length === 0" hlmTr>
+          <td hlmTd colspan="2" class="customer-picker__empty">Nenhum cliente encontrado.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <footer class="customer-picker__footer">
+    <span>{{ total() }} {{ total() === 1 ? 'cliente encontrado' : 'clientes encontrados' }}</span>
+    <div class="customer-picker__pagination">
+    <button
+      hlmBtn
+      size="icon-sm"
+      type="button"
+      variant="ghost"
+      [disabled]="page() === 1"
+      aria-label="Previous page"
+      (click)="previousPage()"
+    >
+      <svg solarAltArrowLeftLinear aria-hidden="true"></svg>
+    </button>
+    <span>Página {{ page() }} de {{ totalPages() }}</span>
+    <button
+      hlmBtn
+      size="icon-sm"
+      type="button"
+      variant="ghost"
+      [disabled]="page() === totalPages()"
+      aria-label="Next page"
+      (click)="nextPage()"
+    >
+      <svg solarAltArrowRightLinear aria-hidden="true"></svg>
+    </button>
+    </div>
+  </footer>
+</div>

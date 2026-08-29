@@ -1,0 +1,47 @@
+export const ERROR_TRANSLATIONS = {
+  card_payment_failed: 'Não foi possível processar o pagamento com cartão.',
+  card_tokenization_failed: 'Não foi possível proteger os dados do cartão.',
+  charge_not_found: 'Cobrança não encontrada.',
+  customer_not_found: 'Cliente não encontrado.',
+  email_already_registered: 'Este e-mail já está cadastrado.',
+  internal_server_error: 'O servidor não conseguiu concluir a solicitação.',
+  invalid_address: 'Informe um endereço válido.',
+  invalid_amount: 'Informe um valor válido para a cobrança.',
+  invalid_card_number: 'Informe um número de cartão válido.',
+  invalid_charge_id: 'A cobrança informada é inválida.',
+  invalid_city: 'Informe uma cidade válida.',
+  invalid_cpf_cnpj: 'Informe um CPF ou CNPJ válido.',
+  invalid_credentials: 'E-mail ou senha incorretos.',
+  invalid_customer_id: 'O cliente informado é inválido.',
+  invalid_cvc: 'Informe um código de segurança válido.',
+  invalid_description: 'Informe uma descrição válida.',
+  invalid_email: 'Informe um e-mail válido.',
+  invalid_expiry: 'Informe uma data de validade válida.',
+  invalid_holder: 'Informe o nome impresso no cartão.',
+  invalid_name: 'Informe um nome válido.',
+  invalid_password: 'A senha informada é inválida.',
+  invalid_payment_method: 'Selecione uma forma de pagamento válida.',
+  invalid_state: 'Informe um estado válido.',
+  invalid_street: 'Informe uma rua válida.',
+  invalid_zip: 'Informe um CEP válido.',
+  invalid_zone: 'Informe um bairro válido.',
+  lytex_client_already_exists: 'Este cliente já está cadastrado na Lytex.',
+  lytex_client_creation_failed: 'Não foi possível cadastrar o cliente na Lytex.',
+  lytex_client_update_failed: 'Não foi possível atualizar o cliente na Lytex.',
+  lytex_invoice_creation_failed: 'Não foi possível criar a cobrança na Lytex.',
+  lytex_simulation_failed: 'Não foi possível simular o pagamento.',
+  missing_lytex_client_id: 'O cliente não possui vínculo com a Lytex.',
+  network_error: 'Não foi possível conectar ao servidor.',
+  not_found: 'O recurso solicitado não foi encontrado.',
+  payment_method_not_allowed: 'Esta forma de pagamento não está disponível para a cobrança.',
+  too_many_requests: 'Muitas tentativas foram realizadas. Aguarde e tente novamente.',
+  unauthorized: 'Sua sessão não é válida. Entre novamente.',
+  unexpected_error: 'Não foi possível concluir a solicitação.',
+  user_not_found: 'Usuário não encontrado.',
+} as const;
+
+export type ApiErrorKey = keyof typeof ERROR_TRANSLATIONS;
+
+export function isApiErrorKey(value: unknown): value is ApiErrorKey {
+  return typeof value === 'string' && value in ERROR_TRANSLATIONS;
+}
