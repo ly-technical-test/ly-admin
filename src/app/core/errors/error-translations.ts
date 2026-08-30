@@ -26,7 +26,7 @@ export const ERROR_TRANSLATIONS = {
   invalid_zip: 'Informe um CEP válido.',
   invalid_zone: 'Informe um bairro válido.',
   lytex_card_invalid: 'O cartão de crédito informado é inválido.',
-  lytex_client_already_exists: 'Este cliente já está cadastrado na Lytex.',
+  lytex_client_already_exists: 'Sentimos muito, mas este cliente já foi captado anteriormente.',
   lytex_client_creation_failed: 'Não foi possível cadastrar o cliente na Lytex.',
   lytex_client_update_failed: 'Não foi possível atualizar o cliente na Lytex.',
   lytex_invoice_creation_failed: 'Não foi possível criar a cobrança na Lytex.',
