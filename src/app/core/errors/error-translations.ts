@@ -1,6 +1,6 @@
 export const ERROR_TRANSLATIONS = {
-  card_payment_failed: 'Não foi possível processar o pagamento com cartão.',
-  card_tokenization_failed: 'Não foi possível proteger os dados do cartão.',
+  card_payment_failed: 'Não foi possível processar o pagamento.',
+  card_tokenization_failed: 'Não foi possível validar seu cartão.',
   charge_not_found: 'Cobrança não encontrada.',
   customer_not_found: 'Cliente não encontrado.',
   email_already_registered: 'Este e-mail já está cadastrado.',

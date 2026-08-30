@@ -1,15 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Injectable, inject } from '@angular/core';
-import { NgxNotifierService } from 'ngx-notifier';
+import { Injectable } from '@angular/core';
+import { toast } from 'ngx-sonner';
 import { ApiErrorKey, ERROR_TRANSLATIONS, isApiErrorKey } from './error-translations';
 
 @Injectable({ providedIn: 'root' })
 export class ErrorMessageService {
-  private readonly notifier = inject(NgxNotifierService);
-
   fromHttp(error: unknown): string {
     const message = ERROR_TRANSLATIONS[this.resolveKey(error)];
-    this.notifier.createToast(message, 'danger', 5000);
+    toast.error(message);
     return message;
   }
 

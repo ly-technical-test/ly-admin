@@ -126,39 +126,5 @@ button:disabled {
   opacity: 0.75;
 }
 
-.ngx-notifier {
-  bottom: auto !important;
-  max-width: min(18.75rem, calc(100vw - var(--space-4))) !important;
-  min-width: min(18.75rem, calc(100vw - var(--space-4))) !important;
-  right: var(--space-2) !important;
-  top: var(--space-2) !important;
-}
 
-.ngx-notifier .ngx-n-notification.alert {
-  border: 1px solid var(--color-toast-error-border) !important;
-  border-radius: 1rem !important;
-  box-shadow: var(--shadow-elevated) !important;
-  font-family: inherit !important;
-  margin: 0 0 var(--space-2) !important;
-}
 
-.ngx-notifier .alert-danger {
-  background: var(--color-toast-error-background) !important;
-  color: var(--color-toast-error-text) !important;
-}
-
-.ngx-notifier .ngx-n-notification p {
-  font-size: var(--font-body) !important;
-  line-height: 1.4 !important;
-}
-
-.ngx-notifier .ngx-n-notification .close {
-  bottom: auto !important;
-  color: inherit !important;
-  left: auto !important;
-  margin: 0 !important;
-  position: absolute !important;
-  right: var(--space-2) !important;
-  top: var(--space-2) !important;
-  transform: none !important;
-}

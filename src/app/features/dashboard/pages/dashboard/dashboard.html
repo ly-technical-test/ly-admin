@@ -6,105 +6,97 @@
     </button>
   </div>
 
-  <div *ngIf="loading(); else dashboardContent" class="dashboard__loading">
-    <hlm-spinner aria-label="Loading dashboard" />
-  </div>
+  <section class="metrics" aria-label="Billing summary">
+    <app-metric-card
+      [amount]="totalIssued()"
+      [caption]="charges().length + ' cobranças emitidas'"
+      label="Total emitido"
+      tone="primary"
+    >
+      <svg solarWalletLinear aria-hidden="true"></svg>
+    </app-metric-card>
+    <app-metric-card
+      [amount]="paidTotal()"
+      [caption]="paidCharges().length + ' cobranças pagas'"
+      label="Cobranças pagas"
+      tone="success"
+    >
+      <svg solarCheckCircleLinear aria-hidden="true"></svg>
+    </app-metric-card>
+    <app-metric-card
+      [amount]="pendingTotal()"
+      [caption]="pendingCharges().length + ' cobranças pendentes'"
+      label="Aguardando pagamento"
+      tone="warning"
+    >
+      <svg solarClockCircleLinear aria-hidden="true"></svg>
+    </app-metric-card>
+  </section>
 
-  <ng-template #dashboardContent>
-    <section class="metrics" aria-label="Billing summary">
-      <app-metric-card
-        [amount]="totalIssued()"
-        [caption]="charges().length + ' cobranças emitidas'"
-        label="Total emitido"
-        tone="primary"
-      >
-        <svg solarWalletLinear aria-hidden="true"></svg>
-      </app-metric-card>
-      <app-metric-card
-        [amount]="paidTotal()"
-        [caption]="paidCharges().length + ' cobranças pagas'"
-        label="Cobranças pagas"
-        tone="success"
-      >
-        <svg solarCheckCircleLinear aria-hidden="true"></svg>
-      </app-metric-card>
-      <app-metric-card
-        [amount]="pendingTotal()"
-        [caption]="pendingCharges().length + ' cobranças pendentes'"
-        label="Aguardando pagamento"
-        tone="warning"
-      >
-        <svg solarClockCircleLinear aria-hidden="true"></svg>
-      </app-metric-card>
-    </section>
-
-    <section hlmCard class="recent-charges">
-      <header hlmCardHeader class="recent-charges__header">
-        <div class="recent-charges__heading">
-          <h2 class="recent-charges__title">Cobranças recentes</h2>
-          <p class="recent-charges__description">
-            Acompanhe as últimas movimentações da sua conta.
-          </p>
-        </div>
-        <div class="recent-charges__actions">
-          <a hlmBtn class="recent-charges__more" routerLink="/billing/list"
-            >Ver mais <svg solarAltArrowRightLinear aria-hidden="true"></svg
-          ></a>
-        </div>
-      </header>
-
-      <div hlmTableContainer>
-        <table hlmTable class="charges-table">
-          <thead hlmTHead>
-            <tr hlmTr>
-              <th hlmTh>Cliente</th>
-              <th hlmTh class="charges-table__description">Descrição</th>
-              <th hlmTh>Valor</th>
-              <th hlmTh class="charges-table__date">Emissão</th>
-              <th hlmTh class="charges-table__method">Método</th>
-              <th hlmTh class="charges-table__status">Status</th>
-            </tr>
-          </thead>
-          <tbody hlmTBody>
-            <tr *ngIf="loading()" hlmTr>
-              <td hlmTd class="charges-table__loading" colspan="6">
-                <hlm-spinner aria-label="Loading charges" />
-                <span>Carregando cobranças...</span>
-              </td>
-            </tr>
-            <tr *ngFor="let charge of rows()" hlmTr>
-              <td hlmTd>
-                <div class="customer-cell">
-                  <span class="customer-cell__name">{{ charge.customerName }}</span>
-                </div>
-              </td>
-              <td hlmTd class="charges-table__description">{{ charge.description }}</td>
-              <td hlmTd class="charges-table__amount">
-                {{ charge.amount / 100 | currency: 'BRL' }}
-              </td>
-              <td hlmTd class="charges-table__date">{{ charge.createdAt | date: 'dd/MM/yyyy' }}</td>
-              <td hlmTd class="charges-table__method">
-                <span hlmBadge variant="secondary">{{
-                  getPaymentMethodLabel(charge.paymentMethod)
-                }}</span>
-              </td>
-              <td hlmTd class="charges-table__status">
-                <span
-                  hlmBadge
-                  variant="secondary"
-                  [class.status-badge--paid]="charge.status === 'PAID'"
-                  [class.status-badge--pending]="charge.status !== 'PAID'"
-                >
-                  {{ getChargeStatusLabel(charge.status) }}
-                </span>
-              </td>
-            </tr>
-            <tr *ngIf="!loading() && rows().length === 0" hlmTr>
-              <td hlmTd class="charges-table__empty" colspan="6">Nenhuma cobrança emitida.</td>
-            </tr>
-          </tbody>
-        </table>
+  <section hlmCard class="recent-charges">
+    <header hlmCardHeader class="recent-charges__header">
+      <div class="recent-charges__heading">
+        <h2 class="recent-charges__title">Cobranças recentes</h2>
+        <p class="recent-charges__description">Acompanhe as últimas movimentações da sua conta.</p>
       </div>
-    </section>
-  </ng-template>
+      <div class="recent-charges__actions">
+        <a hlmBtn class="recent-charges__more" routerLink="/billing/list"
+          >Ver mais <svg solarAltArrowRightLinear aria-hidden="true"></svg
+        ></a>
+      </div>
+    </header>
+
+    <div hlmTableContainer>
+      <table hlmTable class="charges-table">
+        <thead hlmTHead>
+          <tr hlmTr>
+            <th hlmTh>Cliente</th>
+            <th hlmTh class="charges-table__description">Descrição</th>
+            <th hlmTh>Valor</th>
+            <th hlmTh class="charges-table__date">Emissão</th>
+            <th hlmTh class="charges-table__method">Método</th>
+            <th hlmTh class="charges-table__status">Status</th>
+          </tr>
+        </thead>
+        <tbody hlmTBody>
+          <tr *ngIf="loading()" hlmTr>
+            <td hlmTd class="charges-table__loading" colspan="6">
+              <hlm-spinner aria-label="Loading charges" />
+              <span>Carregando cobranças...</span>
+            </td>
+          </tr>
+          <tr *ngFor="let charge of rows()" hlmTr>
+            <td hlmTd>
+              <div class="customer-cell">
+                <span class="customer-cell__name">{{ charge.customerName }}</span>
+              </div>
+            </td>
+            <td hlmTd class="charges-table__description">{{ charge.description }}</td>
+            <td hlmTd class="charges-table__amount">
+              {{ charge.amount / 100 | currency: 'BRL' }}
+            </td>
+            <td hlmTd class="charges-table__date">{{ charge.createdAt | date: 'dd/MM/yyyy' }}</td>
+            <td hlmTd class="charges-table__method">
+              <span hlmBadge variant="secondary">{{
+                getPaymentMethodLabel(charge.paymentMethod)
+              }}</span>
+            </td>
+            <td hlmTd class="charges-table__status">
+              <span
+                hlmBadge
+                variant="secondary"
+                [class.status-badge--paid]="charge.status === 'PAID'"
+                [class.status-badge--pending]="charge.status !== 'PAID'"
+              >
+                {{ getChargeStatusLabel(charge.status) }}
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="!loading() && rows().length === 0" hlmTr>
+            <td hlmTd class="charges-table__empty" colspan="6">Nenhuma cobrança emitida.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
 </div>

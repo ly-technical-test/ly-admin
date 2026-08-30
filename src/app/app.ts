@@ -10,13 +10,13 @@ import {
   Router,
   RouterOutlet,
 } from '@angular/router';
-import { NgxNotifier } from 'ngx-notifier';
+import { NgxSonnerToaster } from 'ngx-sonner';
 import { LoadingScreen } from './shared/components/loading-screen/loading-screen';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: { class: 'ly' },
-  imports: [CommonModule, LoadingScreen, NgxNotifier, RouterOutlet],
+  imports: [CommonModule, LoadingScreen, NgxSonnerToaster, RouterOutlet],
   selector: 'app-root',
   styleUrl: './app.css',
   templateUrl: './app.html',

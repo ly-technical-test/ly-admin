@@ -4,6 +4,7 @@ import {
   Component,
   computed,
   DestroyRef,
+  HostListener,
   inject,
   signal,
 } from '@angular/core';
@@ -23,7 +24,10 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { forkJoin } from 'rxjs';
 import { ErrorMessageService } from '../../../../core/errors/error-message.service';
-import { getChargeStatusLabel, getPaymentMethodLabel } from '../../../../shared/utils/charge-labels';
+import {
+  getChargeStatusLabel,
+  getPaymentMethodLabel,
+} from '../../../../shared/utils/charge-labels';
 import { BillingService } from '../../../billing/data-access/billing.service';
 import { Charge } from '../../../billing/models/charge.model';
 import { CustomersService } from '../../../customers/data-access/customers.service';
@@ -94,6 +98,8 @@ export class Dashboard {
   loadDashboard(): void {
     this.loading.set(true);
     this.errorMessage.set(null);
+    this.charges.set([]);
+    this.customers.set([]);
 
     forkJoin({
       charges: this.billingService.getCharges(),

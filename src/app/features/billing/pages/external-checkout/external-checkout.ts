@@ -2,7 +2,7 @@ import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, DestroyRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, RouterLink } from '@angular/router';
 import {
   SolarCard2Linear,
   SolarCheckCircleLinear,
@@ -57,6 +57,7 @@ function validateExpiry(control: AbstractControl<string>): ValidationErrors | nu
     HlmInput,
     HlmSpinner,
     ReactiveFormsModule,
+    RouterLink,
     SolarCard2Linear,
     SolarCheckCircleLinear,
     SolarCopyLinear,
