@@ -28,7 +28,19 @@ Os testes unitários utilizam padrões modernos com a suíte Vitest (diferente d
 
 ---
 
-## 4. Execução Local
+## 4. Variáveis de Ambiente
+
+As configurações da aplicação devem ser salvas no arquivo `.env`. As chaves necessárias para este projeto são:
+
+- `APP_NAME`: Identificador da aplicação (`ly-admin`).
+- `EXTERNAL_PORT`: Porta externa para acesso à interface.
+- `API_PORT`: Porta interna do serviço.
+- `ENVIRONMENT`: Ambiente de execução (`development` ou `production`).
+- `DOCKER_SUFFIX`: Sufixo para identificação dos contêineres Docker (`dev` ou `deploy`).
+
+---
+
+## 5. Execução Local
 
 ### Pré-requisitos
 - Node.js 20+
