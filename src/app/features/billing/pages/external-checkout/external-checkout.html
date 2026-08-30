@@ -72,7 +72,7 @@
           (ngSubmit)="payByCard()">
           <app-form-field inputId="card-number" label="Número do cartão">
             <input hlmInput class="app-input" autocomplete="cc-number" formControlName="cardNumber" id="card-number"
-              inputmode="numeric" maxlength="23" placeholder="0000 0000 0000 0000"
+              inputmode="numeric" maxlength="19" placeholder="0000 0000 0000 0000"
               (input)="onCardNumberInput(cardForm.controls.cardNumber.value)" />
           </app-form-field>
           <app-form-field inputId="card-holder" label="Nome no cartão">
