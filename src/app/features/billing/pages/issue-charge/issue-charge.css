@@ -182,9 +182,11 @@
   color: var(--color-action);
   font-size: 1.25rem;
 }
-.summary-card__reason {
+.summary-card__reason,
+.summary-card__info {
   color: var(--color-text-muted);
   font-size: var(--font-caption);
+  line-height: 1.4;
   text-align: center;
 }
 @media (max-width: 70rem) {

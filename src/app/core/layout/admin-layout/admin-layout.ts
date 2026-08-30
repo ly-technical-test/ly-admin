@@ -5,7 +5,6 @@ import { NavigationEnd, Router, RouterLink, RouterLinkActive, RouterOutlet } fro
 import { filter } from 'rxjs';
 import {
   SolarAddCircleLinear,
-  SolarCloseCircleLinear,
   SolarHamburgerMenuLinear,
   SolarLogout2Linear,
   SolarUsersGroupRoundedLinear,
@@ -28,7 +27,6 @@ import { ProfileService } from '../../auth/profile.service';
     RouterLinkActive,
     RouterOutlet,
     SolarAddCircleLinear,
-    SolarCloseCircleLinear,
     SolarHamburgerMenuLinear,
     SolarLogout2Linear,
     SolarUsersGroupRoundedLinear,
