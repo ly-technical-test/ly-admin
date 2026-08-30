@@ -27,7 +27,7 @@ type CheckoutMethod = 'boleto' | 'cartao' | 'pix';
 
 function validateCardNumber(control: AbstractControl<string>): ValidationErrors | null {
   const length = control.value.replace(/\D/g, '').length;
-  return length >= 13 && length <= 19 ? null : { invalidCardNumber: true };
+  return length >= 13 && length <= 16 ? null : { invalidCardNumber: true };
 }
 
 function validateExpiry(control: AbstractControl<string>): ValidationErrors | null {
@@ -35,7 +35,14 @@ function validateExpiry(control: AbstractControl<string>): ValidationErrors | nu
   if (!/^\d{2}\/\d{2}$/.test(value)) return { invalidExpiry: true };
 
   const month = Number(value.slice(0, 2));
-  return month >= 1 && month <= 12 ? null : { invalidExpiry: true };
+  const year = Number(value.slice(3));
+  const now = new Date();
+  const currentYear = now.getFullYear() % 100;
+
+  if (month < 1 || month > 12 || year < currentYear) return { invalidExpiry: true };
+  if (year === currentYear && month < now.getMonth() + 1) return { invalidExpiry: true };
+
+  return null;
 }
 
 @Component({
@@ -111,7 +118,7 @@ export class ExternalCheckout {
   }
 
   onCardNumberInput(value: string): void {
-    const cardNumber = value.replace(/\D/g, '').slice(0, 19);
+    const cardNumber = value.replace(/\D/g, '').slice(0, 16);
     this.cardForm.controls.cardNumber.setValue(cardNumber.replace(/(\d{4})(?=\d)/g, '$1 '), {
       emitEvent: false,
     });

@@ -4,7 +4,7 @@
 
 .loading-screen {
   align-items: center;
-  background: color-mix(in srgb, var(--color-page) 78%, transparent);
+  background: var(--color-page);
   display: flex;
   justify-content: center;
 }
