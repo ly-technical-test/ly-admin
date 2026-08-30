@@ -210,8 +210,7 @@
   }
 
   .charges-table__description,
-  .charges-table__date,
-  .charges-table__link {
+  .charges-table__date {
     display: none;
   }
 
