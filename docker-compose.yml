@@ -1,0 +1,29 @@
+services:
+  admin:
+    image: ${APP_NAME}-${ENVIRONMENT}
+    hostname: ${APP_NAME}-${ENVIRONMENT}
+    build:
+      context: .
+      dockerfile: .docker/Dockerfile.${DOCKER_SUFFIX}
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
+    restart: always
+    env_file:
+      - .env
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
+    networks:
+      microservices:
+        aliases:
+          - ${APP_NAME}-${ENVIRONMENT}
+    ports:
+      - ${EXTERNAL_PORT}:${API_PORT}
+    stdin_open: true
+    tty: true
+    volumes:
+      - /app/node_modules
+
+networks:
+  microservices:
+    external: true
+    name: microservices_network
