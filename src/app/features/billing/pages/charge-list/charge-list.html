@@ -1,0 +1,108 @@
+<div class="charge-list">
+  <div class="charge-list__heading">
+    <div>
+      <h2>Histórico de cobranças</h2>
+      <p>Acompanhe todas as cobranças emitidas pela sua conta.</p>
+    </div>
+  </div>
+
+  <div *ngIf="errorMessage() as message" hlmAlert class="charge-list__error" variant="destructive">
+    <p hlmAlertDescription>{{ message }}</p>
+    <button hlmBtn size="sm" type="button" variant="outline" (click)="loadCharges()">
+      Tentar novamente
+    </button>
+  </div>
+
+  <section hlmCard class="charge-list__table-card">
+    <header hlmCardHeader class="charge-list__toolbar">
+      <div class="search-control">
+        <svg *ngIf="!searching()" solarMagnifierLinear class="search-control__icon" aria-hidden="true"></svg>
+        <hlm-spinner *ngIf="searching()" class="search-control__spinner" aria-label="Searching charges" />
+        <input hlmInput class="app-input app-input--leading" type="text" placeholder="Buscar cobrança..."
+          aria-label="Search charges" [formControl]="searchControl" (keydown.enter)="searchImmediately()" />
+      </div>
+
+      <div class="filter-group" aria-label="Charge filters">
+        <button hlmBtn size="sm" type="button" variant="ghost"
+          [class.filter-group__button--active]="selectedFilter() === 'all'" (click)="setFilter('all')">
+          Todas
+        </button>
+        <button hlmBtn size="sm" type="button" variant="ghost"
+          [class.filter-group__button--active]="selectedFilter() === 'pending'" (click)="setFilter('pending')">
+          Pendentes
+        </button>
+        <button hlmBtn size="sm" type="button" variant="ghost"
+          [class.filter-group__button--active]="selectedFilter() === 'paid'" (click)="setFilter('paid')">
+          Pagas
+        </button>
+      </div>
+    </header>
+
+    <div hlmTableContainer>
+      <table hlmTable class="charges-table">
+        <thead hlmTHead>
+          <tr hlmTr>
+            <th hlmTh>Cliente</th>
+            <th hlmTh class="charges-table__description">Descrição</th>
+            <th hlmTh>Valor</th>
+            <th hlmTh class="charges-table__date">Emissão</th>
+            <th hlmTh class="charges-table__method">Método</th>
+            <th hlmTh class="charges-table__status">Status</th>
+            <th hlmTh class="charges-table__link">Cobrança</th>
+          </tr>
+        </thead>
+        <tbody hlmTBody>
+          <tr *ngIf="initialLoading()" hlmTr>
+            <td hlmTd class="charges-table__state" colspan="7">
+              <hlm-spinner aria-label="Loading charges" />
+              <span>Carregando cobranças...</span>
+            </td>
+          </tr>
+          <tr *ngFor="let charge of rows()" hlmTr>
+            <td hlmTd>
+              <div class="customer-cell">
+                <span class="customer-cell__name">{{ charge.customerName }}</span>
+              </div>
+            </td>
+            <td hlmTd class="charges-table__description">{{ charge.description }}</td>
+            <td hlmTd class="charges-table__amount">{{ charge.amount / 100 | currency: 'BRL' }}</td>
+            <td hlmTd class="charges-table__date">{{ charge.createdAt | date: 'dd/MM/yyyy' }}</td>
+            <td hlmTd class="charges-table__method">
+              <span hlmBadge variant="secondary">{{ getPaymentMethodLabel(charge.paymentMethod) }}</span>
+            </td>
+            <td hlmTd class="charges-table__status">
+              <span hlmBadge variant="secondary" [class.status-badge--paid]="charge.status === 'PAID'"
+                [class.status-badge--pending]="charge.status !== 'PAID'">
+                {{ getChargeStatusLabel(charge.status) }}
+              </span>
+            </td>
+            <td hlmTd class="charges-table__link">
+              <button hlmBtn size="icon-sm" type="button" variant="ghost"
+                [attr.aria-label]="'Copy payment link for ' + charge.customerName"
+                (click)="copyPaymentLink(charge)">
+                <svg *ngIf="copiedChargeId() !== charge._id" solarCopyLinear aria-hidden="true"></svg>
+                <svg *ngIf="copiedChargeId() === charge._id" solarCheckCircleLinear aria-hidden="true"></svg>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="!initialLoading() && rows().length === 0" hlmTr>
+            <td hlmTd class="charges-table__state" colspan="7">
+              <span>{{
+                searchControl.value.length > 0 ? 'Nenhuma cobrança encontrada.' : 'Nenhuma cobrança emitida.'
+                }}</span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <footer hlmCardFooter class="charge-list__footer">
+      <span>{{ total() }} {{ total() === 1 ? 'cobrança encontrada' : 'cobranças encontradas' }}</span>
+      <div class="table-pagination">
+        <button hlmBtn size="icon-sm" type="button" variant="ghost" [disabled]="page() === 1" aria-label="Previous page" (click)="changePage(page() - 1)"><svg solarAltArrowLeftLinear aria-hidden="true"></svg></button>
+        <span>Página {{ page() }} de {{ totalPages() }}</span>
+        <button hlmBtn size="icon-sm" type="button" variant="ghost" [disabled]="page() === totalPages()" aria-label="Next page" (click)="changePage(page() + 1)"><svg solarAltArrowRightLinear aria-hidden="true"></svg></button>
+      </div>
+    </footer>
+  </section>
+</div>

@@ -1,0 +1,5 @@
+<div class="form-field">
+  <label hlmLabel class="form-field__label" [for]="inputId()">{{ label() }}</label>
+  <ng-content />
+  <p *ngIf="error()" class="form-field__error" [id]="inputId() + '-error'">{{ error() }}</p>
+</div>

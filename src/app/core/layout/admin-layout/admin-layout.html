@@ -1,0 +1,62 @@
+<div class="admin-layout">
+  <button *ngIf="menuOpen()" class="admin-layout__backdrop" type="button" aria-label="Close navigation"
+    (click)="closeMenu()"></button>
+
+  <aside class="sidebar" [class.sidebar--open]="menuOpen()">
+    <div class="sidebar__brand">
+      <img class="sidebar__logo" src="/logo.png" alt="Lytex" />
+      <strong class="sidebar__name">Teste Lytex</strong>
+      <button hlmBtn class="sidebar__close" size="icon-sm" type="button" variant="ghost" aria-label="Close navigation"
+        (click)="closeMenu()">
+        <svg solarCloseCircleLinear aria-hidden="true"></svg>
+      </button>
+    </div>
+
+    <nav class="sidebar__navigation" aria-label="Main navigation">
+      <a class="sidebar__link" routerLink="/dashboard" routerLinkActive="sidebar__link--active" (click)="closeMenu()">
+        <svg solarWidget5Linear aria-hidden="true"></svg>
+        <span>Dashboard</span>
+      </a>
+      <a class="sidebar__link" routerLink="/billing/list" routerLinkActive="sidebar__link--active"
+        (click)="closeMenu()">
+        <svg solarWalletMoneyLinear aria-hidden="true"></svg>
+        <span>Cobranças</span>
+      </a>
+      <a class="sidebar__link" routerLink="/customers" routerLinkActive="sidebar__link--active" (click)="closeMenu()">
+        <svg solarUsersGroupRoundedLinear aria-hidden="true"></svg>
+        <span>Clientes</span>
+      </a>
+    </nav>
+
+    <div class="sidebar__footer">
+      <a hlmBtn class="sidebar__action" routerLink="/billing/issue" (click)="closeMenu()">
+        <svg solarAddCircleLinear aria-hidden="true"></svg>
+        <span>Nova cobrança</span>
+      </a>
+    </div>
+  </aside>
+
+  <div class="admin-layout__page">
+    <header class="topbar">
+      <div class="topbar__title-group">
+        <button hlmBtn class="topbar__menu" size="icon" type="button" variant="ghost" aria-label="Open navigation"
+          (click)="toggleMenu()">
+          <svg solarHamburgerMenuLinear aria-hidden="true"></svg>
+        </button>
+        <h1 class="topbar__title">{{ pageTitle() }}</h1>
+      </div>
+
+      <div class="topbar__account">
+        <hlm-spinner *ngIf="profileLoading()" aria-label="Loading profile" />
+        <span *ngIf="profile() as user" class="topbar__email">{{ user.email }}</span>
+        <button hlmBtn size="icon" type="button" variant="ghost" aria-label="Log out" (click)="logout()">
+          <svg solarLogout2Linear aria-hidden="true"></svg>
+        </button>
+      </div>
+    </header>
+
+    <main class="admin-layout__content">
+      <router-outlet />
+    </main>
+  </div>
+</div>

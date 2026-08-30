@@ -1,0 +1,131 @@
+<div class="checkout-page">
+  <header class="checkout-header">
+    <img alt="Teste Lytex" class="checkout-header__logo" src="/logo.png" />
+    <span>Teste Lytex</span>
+  </header>
+
+  <main class="checkout-main">
+    <app-loading-screen *ngIf="loading()" [fullscreen]="true" />
+
+    <section *ngIf="!loading() && charge() as currentCharge" hlmCard class="checkout-card">
+      <div class="checkout-summary">
+        <p class="checkout-summary__eyebrow">Resumo do pagamento</p>
+        <div class="checkout-summary__details">
+          <div class="checkout-summary__description">
+            <p>Descrição</p>
+            <h1>{{ currentCharge.description }}</h1>
+          </div>
+          <div class="checkout-summary__amount">
+            <p>Valor</p>
+            <strong>{{ currentCharge.amount / 100 | currency: 'BRL' }}</strong>
+          </div>
+        </div>
+      </div>
+
+      <div *ngIf="isPaid()" class="checkout-paid">
+        <svg solarCheckCircleLinear aria-hidden="true"></svg>
+        <div>
+          <h2>Pagamento confirmado</h2>
+          <p>Esta cobrança já foi paga.</p>
+        </div>
+      </div>
+
+      <div *ngIf="!isPaid()" class="checkout-content">
+        <div *ngIf="allowsMultipleMethods()" class="checkout-content__heading">
+          <h2>Escolha a forma de pagamento</h2>
+          <p>Selecione uma opção para continuar.</p>
+        </div>
+
+        <div *ngIf="allowsMultipleMethods()" class="checkout-methods">
+          <button *ngIf="availableMethods().includes('pix')" class="checkout-method" type="button"
+            [class.checkout-method--selected]="selectedMethod() === 'pix'" (click)="selectMethod('pix')">
+            <svg solarQrCodeLinear aria-hidden="true"></svg><span>PIX</span>
+          </button>
+          <button *ngIf="availableMethods().includes('cartao')" class="checkout-method" type="button"
+            [class.checkout-method--selected]="selectedMethod() === 'cartao'" (click)="selectMethod('cartao')">
+            <svg solarCard2Linear aria-hidden="true"></svg><span>Cartão de crédito</span>
+          </button>
+          <button *ngIf="availableMethods().includes('boleto')" class="checkout-method" type="button"
+            [class.checkout-method--selected]="selectedMethod() === 'boleto'" (click)="selectMethod('boleto')">
+            <svg solarDocumentTextLinear aria-hidden="true"></svg><span>Boleto</span>
+          </button>
+        </div>
+
+        <div *ngIf="selectedMethod() === 'pix' && currentCharge.pix as pix"
+          class="checkout-payment checkout-payment--centered">
+          <div class="checkout-qr">
+            <img *ngIf="pixQrCode() as qrCode" alt="QR Code PIX" [src]="qrCode" />
+            <svg *ngIf="!pixQrCode()" solarQrCodeLinear aria-hidden="true"></svg>
+          </div>
+          <p>Copie o código PIX para pagar pelo aplicativo do seu banco.</p>
+          <div class="checkout-copy-field">
+            <input hlmInput class="app-input" readonly [value]="pix.qrcode" />
+            <button hlmBtn type="button" (click)="copy(pix.qrcode)">
+              <svg *ngIf="copiedValue() !== pix.qrcode" solarCopyLinear aria-hidden="true"></svg>
+              <svg *ngIf="copiedValue() === pix.qrcode" solarCheckCircleLinear aria-hidden="true"></svg>
+              {{ copiedValue() === pix.qrcode ? 'Copiado' : 'Copiar' }}
+            </button>
+          </div>
+        </div>
+
+        <form *ngIf="selectedMethod() === 'cartao'" class="checkout-payment checkout-card-form" [formGroup]="cardForm"
+          (ngSubmit)="payByCard()">
+          <app-form-field inputId="card-number" label="Número do cartão">
+            <input hlmInput class="app-input" autocomplete="cc-number" formControlName="cardNumber" id="card-number"
+              inputmode="numeric" maxlength="23" placeholder="0000 0000 0000 0000"
+              (input)="onCardNumberInput(cardForm.controls.cardNumber.value)" />
+          </app-form-field>
+          <app-form-field inputId="card-holder" label="Nome no cartão">
+            <input hlmInput class="app-input" autocomplete="cc-name" formControlName="holder" id="card-holder"
+              maxlength="128" placeholder="Nome impresso no cartão" (input)="onHolderInput(cardForm.controls.holder.value)" />
+          </app-form-field>
+          <div class="checkout-card-form__row">
+            <app-form-field [error]="expiryError" inputId="card-expiry" label="Validade">
+              <input hlmInput class="app-input" autocomplete="cc-exp" formControlName="expiry" id="card-expiry"
+                inputmode="numeric" maxlength="5" placeholder="MM/AA"
+                (input)="onExpiryInput(cardForm.controls.expiry.value)" />
+            </app-form-field>
+            <app-form-field inputId="card-cvc" label="CVV">
+              <input hlmInput class="app-input" autocomplete="cc-csc" formControlName="cvc" id="card-cvc"
+                inputmode="numeric" maxlength="4" placeholder="123" (input)="onCvcInput(cardForm.controls.cvc.value)" />
+            </app-form-field>
+          </div>
+          <p *ngIf="paymentError() as message" class="auth-form__error" role="alert">{{ message }}</p>
+          <button hlmBtn class="checkout-card-form__submit" type="submit" [disabled]="cardForm.invalid || submitting()">
+            <hlm-spinner *ngIf="submitting()" aria-hidden="true" />
+            <svg *ngIf="!submitting()" solarLockLinear aria-hidden="true"></svg>
+            {{ submitting() ? 'Processando...' : 'Pagar ' + (currentCharge.amount / 100 | currency: 'BRL') }}
+          </button>
+        </form>
+
+        <div *ngIf="selectedMethod() === 'boleto' && currentCharge.boleto as boleto"
+          class="checkout-payment checkout-payment--centered">
+          <svg class="checkout-barcode-icon" solarDocumentTextLinear aria-hidden="true"></svg>
+          <img *ngIf="boletoBarcode() as barcode" alt="Código de barras do boleto" class="checkout-boleto-barcode"
+            [src]="barcode" />
+          <p>Copie o código de barras para realizar o pagamento.</p>
+          <div class="checkout-boleto-code">{{ boleto.digitableLine }}</div>
+          <button hlmBtn type="button" (click)="copy(boleto.digitableLine)">
+            <svg *ngIf="copiedValue() !== boleto.digitableLine" solarCopyLinear aria-hidden="true"></svg>
+            <svg *ngIf="copiedValue() === boleto.digitableLine" solarCheckCircleLinear aria-hidden="true"></svg>
+            {{ copiedValue() === boleto.digitableLine ? 'Copiado' : 'Copiar código' }}
+          </button>
+        </div>
+
+        <ng-container *ngIf="selectedMethod() !== 'cartao'">
+          <p *ngIf="paymentError() as message" class="checkout-error" role="alert">{{ message }}</p>
+        </ng-container>
+      </div>
+    </section>
+
+    <section *ngIf="!loading() && !charge()" hlmCard class="checkout-empty">
+      <h1>Não foi possível carregar esta cobrança</h1>
+      <p>Verifique o link de pagamento e tente novamente.</p>
+    </section>
+  </main>
+
+  <button *ngIf="charge() && !loading() && !isPaid()" hlmBtn class="checkout-simulate" type="button" variant="outline"
+    [disabled]="submitting()" (click)="simulatePayment()">
+    Simular liquidação
+  </button>
+</div>

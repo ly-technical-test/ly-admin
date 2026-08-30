@@ -1,0 +1,64 @@
+<app-auth-shell
+  description="Crie sua conta para começar a gerenciar cobranças."
+  title="Criar conta"
+>
+  <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="auth-form__fields">
+      <app-form-field [error]="nameError" inputId="register-name" label="Nome completo">
+        <div class="input-control">
+          <svg solarUserLinear class="input-control__icon" aria-hidden="true"></svg>
+          <input
+            hlmInput
+            class="app-input app-input--leading"
+            autocomplete="name"
+            formControlName="name"
+            id="register-name"
+            placeholder="Seu nome completo"
+            type="text"
+            [attr.aria-describedby]="nameError ? 'register-name-error' : null"
+            [attr.aria-invalid]="nameError ? true : null"
+          />
+        </div>
+      </app-form-field>
+
+      <app-form-field [error]="emailError" inputId="register-email" label="E-mail">
+        <div class="input-control">
+          <svg solarLetterLinear class="input-control__icon" aria-hidden="true"></svg>
+          <input
+            hlmInput
+            class="app-input app-input--leading"
+            autocomplete="email"
+            formControlName="email"
+            id="register-email"
+            inputmode="email"
+            placeholder="seu@email.com"
+            type="email"
+            [attr.aria-describedby]="emailError ? 'register-email-error' : null"
+            [attr.aria-invalid]="emailError ? true : null"
+          />
+        </div>
+      </app-form-field>
+
+      <app-password-field
+        autocomplete="new-password"
+        inputId="register-password"
+        label="Senha"
+        [control]="form.controls.password"
+        [error]="passwordError"
+      />
+    </div>
+
+    <div class="auth-form__footer">
+      <p *ngIf="errorMessage() as message" class="auth-form__error" role="alert">{{ message }}</p>
+      <button hlmBtn class="auth-form__submit" type="submit" [disabled]="submitting()">
+        <hlm-spinner *ngIf="submitting()" aria-hidden="true" />
+        <span>{{ submitting() ? 'Criando conta...' : 'Criar conta' }}</span>
+        <svg *ngIf="!submitting()" solarArrowRightLinear aria-hidden="true"></svg>
+      </button>
+      <p class="auth-form__switch">
+        Já tem uma conta?
+        <a class="auth-form__link" routerLink="/login">Entrar</a>
+      </p>
+    </div>
+  </form>
+</app-auth-shell>

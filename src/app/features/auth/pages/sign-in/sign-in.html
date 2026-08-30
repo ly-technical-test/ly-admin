@@ -1,0 +1,44 @@
+<app-auth-shell description="Acesse sua conta para gerenciar pagamentos." title="Teste Lytex">
+  <form class="auth-form" [formGroup]="form" (ngSubmit)="submit()">
+    <div class="auth-form__fields">
+      <app-form-field [error]="emailError" inputId="login-email" label="E-mail">
+        <div class="input-control">
+          <svg solarLetterLinear class="input-control__icon" aria-hidden="true"></svg>
+          <input
+            hlmInput
+            class="app-input app-input--leading"
+            autocomplete="email"
+            formControlName="email"
+            id="login-email"
+            inputmode="email"
+            placeholder="seu@email.com"
+            type="email"
+            [attr.aria-describedby]="emailError ? 'login-email-error' : null"
+            [attr.aria-invalid]="emailError ? true : null"
+          />
+        </div>
+      </app-form-field>
+
+      <app-password-field
+        autocomplete="current-password"
+        inputId="login-password"
+        label="Senha"
+        [control]="form.controls.password"
+        [error]="passwordError"
+      />
+    </div>
+
+    <div class="auth-form__footer">
+      <p *ngIf="errorMessage() as message" class="auth-form__error" role="alert">{{ message }}</p>
+      <button hlmBtn class="auth-form__submit" type="submit" [disabled]="submitting()">
+        <hlm-spinner *ngIf="submitting()" aria-hidden="true" />
+        <span>{{ submitting() ? 'Entrando...' : 'Entrar' }}</span>
+        <svg *ngIf="!submitting()" solarArrowRightLinear aria-hidden="true"></svg>
+      </button>
+      <p class="auth-form__switch">
+        Não tem uma conta?
+        <a class="auth-form__link" routerLink="/register">Registre-se</a>
+      </p>
+    </div>
+  </form>
+</app-auth-shell>

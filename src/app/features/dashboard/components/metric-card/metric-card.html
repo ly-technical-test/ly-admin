@@ -1,0 +1,12 @@
+<section hlmCard class="metric-card">
+  <div hlmCardContent class="metric-card__content">
+    <div class="metric-card__body">
+      <p class="metric-card__label">{{ label() }}</p>
+      <strong class="metric-card__value">{{ amount() / 100 | currency: 'BRL' }}</strong>
+    </div>
+    <div class="metric-card__icon" [attr.data-tone]="tone()">
+      <ng-content />
+    </div>
+  </div>
+  <p hlmCardFooter class="metric-card__caption">{{ caption() }}</p>
+</section>
