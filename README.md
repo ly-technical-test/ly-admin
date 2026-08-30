@@ -1,59 +1,48 @@
-# LyAdmin
+# Admin Frontend (ly-admin)
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 22.1.6.
+Painel administrativo do desafio. Responsável pela gestão de clientes, visualização e emissão de cobranças através de uma interface web fluida e moderna.
 
-## Development server
+---
 
-To start a local development server, run:
+## 1. Arquitetura e Tecnologias
 
-```bash
-ng serve
-```
+- **Framework**: Angular 22 (Standalone)
+- **Linguagem**: TypeScript
+- **Design System**: Spartan UI & Tailwind CSS
+- **Testes**: Vitest (Unitários)
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+---
 
-## Code scaffolding
+## 2. Requisitos Atendidos
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Painel de Controle**: Dashboard interativo.
+- **Gestão de Clientes**: Formulário responsivo de cadastro.
+- **Cobranças**: Emissão e pagamentos multimeios (PIX, Boleto, Cartão de Crédito).
+- **Notificações**: Alertas em tempo real (ngx-sonner).
 
-```bash
-ng generate component component-name
-```
+---
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+## 3. Estrutura de Testes
 
-```bash
-ng generate --help
-```
+Os testes unitários utilizam padrões modernos com a suíte Vitest (diferente do back-end, que utiliza Jest). Para os componentes, adotamos a abordagem do **`@testing-library/angular`** (orientada ao comportamento do usuário), garantindo testes resilientes e sem boilerplate excessivo.
 
-## Building
+---
 
-To build the project run:
+## 4. Execução Local
 
-```bash
-ng build
-```
+### Pré-requisitos
+- Node.js 20+
+- Backend (`ly-services`) rodando na porta correta.
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+### Passos
 
 ```bash
-ng test
+# 1. Instalar dependências
+npm install
+
+# 2. Iniciar servidor de desenvolvimento local
+npm run dev
+
+# 3. Rodar suíte de testes unitários
+npm test
 ```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
