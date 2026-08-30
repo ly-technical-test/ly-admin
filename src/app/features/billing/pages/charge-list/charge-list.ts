@@ -25,6 +25,7 @@ import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import { HlmTableImports } from '@spartan-ng/helm/table';
 import { debounceTime, distinctUntilChanged, map, merge, Subject } from 'rxjs';
 import { ErrorMessageService } from '../../../../core/errors/error-message.service';
+import { CheckoutPreferencesService } from '../../../../core/preferences/checkout-preferences.service';
 import { getChargeStatusLabel, getPaymentMethodLabel } from '../../../../shared/utils/charge-labels';
 import { CustomersService } from '../../../customers/data-access/customers.service';
 import { Customer } from '../../../customers/models/customer.model';
@@ -63,6 +64,7 @@ interface ChargeRow extends Charge {
 export class ChargeList {
   private readonly billingService = inject(BillingService);
   private readonly customersService = inject(CustomersService);
+  private readonly checkoutPreferencesService = inject(CheckoutPreferencesService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly errorMessageService = inject(ErrorMessageService);
 
@@ -82,7 +84,7 @@ export class ChargeList {
     const customerNames = new Map(this.customers().map(({ _id, name }) => [_id, name]));
     return this.charges().map((charge) => ({
       ...charge,
-      customerName: customerNames.get(charge.customer) ?? charge.customer,
+      customerName: customerNames.get(charge.customer) ?? 'Desconhecido',
     }));
   });
 
@@ -161,9 +163,9 @@ export class ChargeList {
     this.immediateSearch.next(this.searchControl.value);
   }
 
-  async copyPaymentLink(chargeId: string): Promise<void> {
-    await navigator.clipboard.writeText(`${window.location.origin}/external/checkout/${chargeId}`);
-    this.copiedChargeId.set(chargeId);
+  async copyPaymentLink(charge: Charge): Promise<void> {
+    await navigator.clipboard.writeText(this.checkoutPreferencesService.getCheckoutLink(charge));
+    this.copiedChargeId.set(charge._id);
     window.setTimeout(() => this.copiedChargeId.set(null), 1000);
   }
 }

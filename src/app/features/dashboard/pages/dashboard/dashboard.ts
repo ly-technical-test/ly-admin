@@ -79,7 +79,7 @@ export class Dashboard {
     return this.charges()
       .map((charge) => ({
         ...charge,
-        customerName: customerNames.get(charge.customer) ?? charge.customer,
+        customerName: customerNames.get(charge.customer) ?? 'Desconhecido',
       }))
       .slice(0, 6);
   });

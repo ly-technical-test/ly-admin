@@ -29,6 +29,7 @@ import { HlmInput } from '@spartan-ng/helm/input';
 import { Router } from '@angular/router';
 import { catchError, debounceTime, distinctUntilChanged, of, startWith, switchMap } from 'rxjs';
 import { ErrorMessageService } from '../../../../core/errors/error-message.service';
+import { CheckoutPreferencesService } from '../../../../core/preferences/checkout-preferences.service';
 import { PaginatedData } from '../../../../core/http/api-response.model';
 import { FormField } from '../../../../shared/components/form-field/form-field';
 import { AddressService } from '../../../customers/data-access/address.service';
@@ -91,6 +92,7 @@ export class IssueCharge {
   private readonly billingService = inject(BillingService);
   private readonly addressService = inject(AddressService);
   private readonly customersService = inject(CustomersService);
+  private readonly checkoutPreferencesService = inject(CheckoutPreferencesService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly errorMessageService = inject(ErrorMessageService);
   private readonly router = inject(Router);
@@ -202,7 +204,7 @@ export class IssueCharge {
         },
         next: (charge) => {
           this.issueSaving.set(false);
-          window.open(`${window.location.origin}/external/checkout/${charge._id}`, '_blank', 'noopener');
+          window.open(this.checkoutPreferencesService.getCheckoutLink(charge), '_blank', 'noopener');
           void this.router.navigateByUrl('/billing/list');
         },
       });

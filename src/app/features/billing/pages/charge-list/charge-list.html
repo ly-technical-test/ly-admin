@@ -79,7 +79,7 @@
             <td hlmTd class="charges-table__link">
               <button hlmBtn size="icon-sm" type="button" variant="ghost"
                 [attr.aria-label]="'Copy payment link for ' + charge.customerName"
-                (click)="copyPaymentLink(charge._id)">
+                (click)="copyPaymentLink(charge)">
                 <svg *ngIf="copiedChargeId() !== charge._id" solarCopyLinear aria-hidden="true"></svg>
                 <svg *ngIf="copiedChargeId() === charge._id" solarCheckCircleLinear aria-hidden="true"></svg>
               </button>

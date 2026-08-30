@@ -2,11 +2,4 @@
 
 <ngx-notifier [allowDuplicates]="false" [duration]="5000" [max]="3" />
 
-<div *ngIf="loading()" class="app-loading" aria-live="polite" role="status">
-  <div class="app-loading__content">
-    <img class="app-loading__logo" src="/logo.png" alt="Lytex" />
-    <div class="app-loading__dots" aria-label="Carregando">
-      <span></span><span></span><span></span>
-    </div>
-  </div>
-</div>
+<app-loading-screen *ngIf="loading()" [fullscreen]="true" />

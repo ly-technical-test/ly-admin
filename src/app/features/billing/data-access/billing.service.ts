@@ -3,7 +3,7 @@ import { inject, Injectable } from '@angular/core';
 import { map, Observable } from 'rxjs';
 import { environment } from '../../../../environments/environment';
 import { ApiResponse, PaginatedData } from '../../../core/http/api-response.model';
-import { Charge, IssueChargePayload } from '../models/charge.model';
+import { Charge, CheckoutCharge, IssueChargePayload, PayCardPayload } from '../models/charge.model';
 
 @Injectable({ providedIn: 'root' })
 export class BillingService {
@@ -42,5 +42,23 @@ export class BillingService {
     return this.http
       .post<ApiResponse<Charge>>(`${environment.apiUrl}/billing/issue`, payload)
       .pipe(map(({ data }) => data));
+  }
+
+  getCheckoutCharge(id: string): Observable<CheckoutCharge> {
+    return this.http
+      .get<ApiResponse<CheckoutCharge>>(`${environment.apiUrl}/billing/${id}`)
+      .pipe(map(({ data }) => data));
+  }
+
+  payByCard(payload: PayCardPayload): Observable<void> {
+    return this.http
+      .post<ApiResponse<void>>(`${environment.apiUrl}/billing/pay-card`, payload)
+      .pipe(map(() => undefined));
+  }
+
+  simulatePayment(id: string, paymentMethod: 'boleto' | 'creditCard' | 'pix'): Observable<void> {
+    return this.http
+      .post<ApiResponse<void>>(`${environment.apiUrl}/billing/simulate/${id}`, { paymentMethod })
+      .pipe(map(() => undefined));
   }
 }
