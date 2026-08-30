@@ -4,6 +4,10 @@
       <h2>Histórico de cobranças</h2>
       <p>Acompanhe todas as cobranças emitidas pela sua conta.</p>
     </div>
+    <a hlmBtn class="charge-list__new-action" routerLink="/billing/issue">
+      <svg solarAddCircleLinear aria-hidden="true"></svg>
+      <span>Nova cobrança</span>
+    </a>
   </div>
 
   <div *ngIf="errorMessage() as message" hlmAlert class="charge-list__error" variant="destructive">

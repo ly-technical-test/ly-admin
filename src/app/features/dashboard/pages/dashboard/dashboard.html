@@ -12,25 +12,19 @@
       [caption]="charges().length + ' cobranças emitidas'"
       label="Total emitido"
       tone="primary"
-    >
-      <svg solarWalletLinear aria-hidden="true"></svg>
-    </app-metric-card>
+    />
     <app-metric-card
       [amount]="paidTotal()"
       [caption]="paidCharges().length + ' cobranças pagas'"
       label="Cobranças pagas"
       tone="success"
-    >
-      <svg solarCheckCircleLinear aria-hidden="true"></svg>
-    </app-metric-card>
+    />
     <app-metric-card
       [amount]="pendingTotal()"
       [caption]="pendingCharges().length + ' cobranças pendentes'"
       label="Aguardando pagamento"
       tone="warning"
-    >
-      <svg solarClockCircleLinear aria-hidden="true"></svg>
-    </app-metric-card>
+    />
   </section>
 
   <section hlmCard class="recent-charges">

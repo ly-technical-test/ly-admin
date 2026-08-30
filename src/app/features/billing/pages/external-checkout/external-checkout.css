@@ -218,9 +218,24 @@
 
 .checkout-copy-field svg,
 .checkout-payment > button svg,
+.checkout-actions-row svg,
 .checkout-card-form__submit svg {
   height: 1rem;
   width: 1rem;
+}
+
+.checkout-actions-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  justify-content: center;
+  width: 100%;
+}
+
+.checkout-actions-row > button,
+.checkout-actions-row > a {
+  gap: var(--space-2);
 }
 
 .checkout-card-form__row {

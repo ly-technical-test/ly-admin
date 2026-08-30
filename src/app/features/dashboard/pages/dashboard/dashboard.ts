@@ -12,9 +12,6 @@ import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   SolarAltArrowRightLinear,
-  SolarCheckCircleLinear,
-  SolarClockCircleLinear,
-  SolarWalletLinear,
 } from '@solar-icons/angular';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -54,9 +51,6 @@ interface ChargeRow extends Charge {
     RouterLink,
     ...HlmTooltipImports,
     SolarAltArrowRightLinear,
-    SolarCheckCircleLinear,
-    SolarClockCircleLinear,
-    SolarWalletLinear,
   ],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',

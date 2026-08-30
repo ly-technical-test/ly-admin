@@ -17,6 +17,7 @@ import { HlmInput } from '@spartan-ng/helm/input';
 import { HlmSpinner } from '@spartan-ng/helm/spinner';
 import JsBarcode from 'jsbarcode';
 import { toDataURL } from 'qrcode';
+import { toast } from 'ngx-sonner';
 import { ErrorMessageService } from '../../../../core/errors/error-message.service';
 import { FormField } from '../../../../shared/components/form-field/form-field';
 import { LoadingScreen } from '../../../../shared/components/loading-screen/loading-screen';
@@ -114,6 +115,7 @@ export class ExternalCheckout {
   copy(value: string): void {
     void navigator.clipboard.writeText(value).then(() => {
       this.copiedValue.set(value);
+      toast.success('Copiado para a área de transferência.');
       window.setTimeout(() => this.copiedValue.set(null), 1000);
     });
   }

@@ -9,12 +9,15 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { toast } from 'ngx-sonner';
 import {
   SolarCopyLinear,
   SolarCheckCircleLinear,
   SolarAltArrowLeftLinear,
   SolarAltArrowRightLinear,
   SolarMagnifierLinear,
+  SolarAddCircleLinear,
 } from '@solar-icons/angular';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -43,6 +46,7 @@ interface ChargeRow extends Charge {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
+    RouterLink,
     HlmAlert,
     HlmAlertDescription,
     HlmBadge,
@@ -58,6 +62,7 @@ interface ChargeRow extends Charge {
     SolarAltArrowLeftLinear,
     SolarAltArrowRightLinear,
     SolarMagnifierLinear,
+    SolarAddCircleLinear,
   ],
   selector: 'app-charge-list',
   styleUrl: './charge-list.css',
@@ -168,6 +173,7 @@ export class ChargeList {
   async copyPaymentLink(charge: Charge): Promise<void> {
     await navigator.clipboard.writeText(this.checkoutPreferencesService.getCheckoutLink(charge));
     this.copiedChargeId.set(charge._id);
+    toast.success('Link de cobrança copiado para a área de transferência.');
     window.setTimeout(() => this.copiedChargeId.set(null), 1000);
   }
 }

@@ -13,4 +13,5 @@ export class FormField {
   readonly error = input<string>();
   readonly inputId = input.required<string>();
   readonly label = input.required<string>();
+  readonly mobileLabel = input<string>();
 }

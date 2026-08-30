@@ -17,18 +17,12 @@
     </header>
     <div hlmTableContainer>
       <table hlmTable class="customers-table">
-        <colgroup>
-          <col class="customers-table__customer-column" />
-          <col class="customers-table__email-column" />
-          <col class="customers-table__document-column" />
-          <col class="customers-table__location-column" />
-        </colgroup>
         <thead hlmTHead>
           <tr hlmTr>
-            <th hlmTh>Cliente</th>
-            <th hlmTh>E-mail</th>
-            <th hlmTh>CPF ou CNPJ</th>
-            <th hlmTh>Localidade</th>
+            <th hlmTh class="customers-table__col-name">Cliente</th>
+            <th hlmTh class="customers-table__col-email">E-mail</th>
+            <th hlmTh class="customers-table__col-document">CPF ou CNPJ</th>
+            <th hlmTh class="customers-table__col-location">Localidade</th>
           </tr>
         </thead>
         <tbody hlmTBody>
@@ -38,16 +32,16 @@
             </td>
           </tr>
           <tr *ngFor="let customer of customers()" hlmTr>
-            <td hlmTd class="customers-table__name">
+            <td hlmTd class="customers-table__name customers-table__col-name">
               <span [hlmTooltip]="customer.name" class="inline-block max-w-full truncate align-bottom">{{ customer.name }}</span>
             </td>
-            <td hlmTd>
+            <td hlmTd class="customers-table__col-email">
               <span [hlmTooltip]="customer.email" class="inline-block max-w-full truncate align-bottom">{{ customer.email }}</span>
             </td>
-            <td hlmTd>
+            <td hlmTd class="customers-table__col-document">
               <span [hlmTooltip]="formatCpfCnpj(customer.cpfCnpj)" class="inline-block max-w-full truncate align-bottom">{{ formatCpfCnpj(customer.cpfCnpj) }}</span>
             </td>
-            <td hlmTd>
+            <td hlmTd class="customers-table__col-location">
               <span [hlmTooltip]="customer.address.city + ' · ' + customer.address.state" class="inline-block max-w-full truncate align-bottom">{{ customer.address.city }} · {{ customer.address.state }}</span>
             </td>
           </tr>

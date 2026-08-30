@@ -49,6 +49,10 @@
   justify-content: center;
 }
 
+.metric-card__icon:empty {
+  display: none;
+}
+
 .metric-card__icon[data-tone='primary'] {
   background: var(--color-action-soft);
   color: var(--color-action);
