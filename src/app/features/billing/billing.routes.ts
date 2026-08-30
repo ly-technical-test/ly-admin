@@ -9,7 +9,7 @@ export const billingRoutes: Routes = [
     loadComponent: () =>
       import('./pages/issue-charge/issue-charge').then(({ IssueCharge }) => IssueCharge),
     path: 'issue',
-    title: 'Nova cobrança | Teste Lytex',
+    title: 'Nova cobrança | Desafio Lytex',
   },
   {
     data: {
@@ -19,6 +19,6 @@ export const billingRoutes: Routes = [
     loadComponent: () =>
       import('./pages/charge-list/charge-list').then(({ ChargeList }) => ChargeList),
     path: 'list',
-    title: 'Cobranças | Teste Lytex',
+    title: 'Cobranças | Desafio Lytex',
   },
 ];
