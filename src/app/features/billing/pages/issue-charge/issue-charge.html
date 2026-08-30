@@ -182,6 +182,9 @@
       <div class="summary-card__total">
         <span>Total</span><strong>{{ amountInCents() / 100 | currency: 'BRL' }}</strong>
       </div>
+      <p class="summary-card__info">
+        Ao emitir, o link de pagamento será aberto em uma nova aba. Ele é público e pode ser enviado diretamente ao cliente.
+      </p>
       <button hlmBtn type="button" [disabled]="!canIssue() || issueSaving()" (click)="issueCharge()">
         {{ issueSaving() ? 'Emitindo cobrança...' : 'Emitir cobrança' }}
       </button>
