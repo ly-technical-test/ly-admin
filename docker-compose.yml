@@ -5,9 +5,13 @@ services:
     build:
       context: .
       dockerfile: .docker/Dockerfile.${DOCKER_SUFFIX}
+      args:
+        ENVIRONMENT: ${ENVIRONMENT}
     restart: always
     env_file:
       - .env
+    environment:
+      ENVIRONMENT: ${ENVIRONMENT}
     networks:
       microservices:
         aliases:
