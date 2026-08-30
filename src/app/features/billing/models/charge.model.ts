@@ -4,8 +4,6 @@ export interface Charge {
   createdAt: string;
   customer: string;
   description: string;
-  lytexHashId: string;
-  lytexId: string;
   linkBoleto?: string;
   linkCheckout: string;
   paymentMethod: string;
