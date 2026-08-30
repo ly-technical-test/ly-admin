@@ -1,9 +1,6 @@
 <div class="dashboard">
-  <div *ngIf="errorMessage() as message" hlmAlert class="dashboard__error" variant="destructive">
+  <div *ngIf="errorMessage() as message" hlmAlert class="dashboard__error !border-destructive/30" variant="destructive">
     <p hlmAlertDescription>{{ message }}</p>
-    <button hlmBtn size="sm" type="button" variant="outline" (click)="loadDashboard()">
-      Tentar novamente
-    </button>
   </div>
 
   <section class="metrics" aria-label="Billing summary">

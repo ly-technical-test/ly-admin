@@ -4,7 +4,7 @@
     <p>Preencha os dados abaixo para emitir uma nova cobrança.</p>
   </div>
 
-  <div *ngIf="errorMessage() as message" hlmAlert class="issue-charge__alert" variant="destructive">
+  <div *ngIf="errorMessage() as message" hlmAlert class="issue-charge__alert !border-destructive/30" variant="destructive">
     <p hlmAlertDescription>{{ message }}</p>
   </div>
 
