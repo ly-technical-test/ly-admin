@@ -33,6 +33,7 @@ import { Charge } from '../../../billing/models/charge.model';
 import { CustomersService } from '../../../customers/data-access/customers.service';
 import { Customer } from '../../../customers/models/customer.model';
 import { MetricCard } from '../../components/metric-card/metric-card';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 interface ChargeRow extends Charge {
   customerName: string;
@@ -51,6 +52,7 @@ interface ChargeRow extends Charge {
     HlmTableImports,
     MetricCard,
     RouterLink,
+    ...HlmTooltipImports,
     SolarAltArrowRightLinear,
     SolarCheckCircleLinear,
     SolarClockCircleLinear,

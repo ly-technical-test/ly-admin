@@ -38,10 +38,18 @@
             </td>
           </tr>
           <tr *ngFor="let customer of customers()" hlmTr>
-            <td hlmTd class="customers-table__name"><span class="line-clamp-1">{{ customer.name }}</span></td>
-            <td hlmTd><span class="line-clamp-1">{{ customer.email }}</span></td>
-            <td hlmTd><span class="line-clamp-1">{{ formatCpfCnpj(customer.cpfCnpj) }}</span></td>
-            <td hlmTd><span class="line-clamp-1">{{ customer.address.city }} · {{ customer.address.state }}</span></td>
+            <td hlmTd class="customers-table__name">
+              <span [hlmTooltip]="customer.name" class="inline-block max-w-full truncate align-bottom">{{ customer.name }}</span>
+            </td>
+            <td hlmTd>
+              <span [hlmTooltip]="customer.email" class="inline-block max-w-full truncate align-bottom">{{ customer.email }}</span>
+            </td>
+            <td hlmTd>
+              <span [hlmTooltip]="formatCpfCnpj(customer.cpfCnpj)" class="inline-block max-w-full truncate align-bottom">{{ formatCpfCnpj(customer.cpfCnpj) }}</span>
+            </td>
+            <td hlmTd>
+              <span [hlmTooltip]="customer.address.city + ' · ' + customer.address.state" class="inline-block max-w-full truncate align-bottom">{{ customer.address.city }} · {{ customer.address.state }}</span>
+            </td>
           </tr>
           <tr *ngIf="!loading() && customers().length === 0" hlmTr>
             <td hlmTd class="customers-table__state" colspan="4">

@@ -31,6 +31,7 @@ import { CustomersService } from '../../../customers/data-access/customers.servi
 import { Customer } from '../../../customers/models/customer.model';
 import { BillingService } from '../../data-access/billing.service';
 import { Charge } from '../../models/charge.model';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 type ChargeFilter = 'all' | 'paid' | 'pending';
 
@@ -51,6 +52,7 @@ interface ChargeRow extends Charge {
     HlmSpinner,
     HlmTableImports,
     ReactiveFormsModule,
+    ...HlmTooltipImports,
     SolarCopyLinear,
     SolarCheckCircleLinear,
     SolarAltArrowLeftLinear,

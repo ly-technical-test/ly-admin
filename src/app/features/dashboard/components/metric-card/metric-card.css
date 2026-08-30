@@ -3,7 +3,7 @@
   border-radius: var(--radius-card);
   box-shadow: var(--shadow-surface);
   gap: var(--space-5);
-  min-height: 11rem;
+  /* min-height: 11rem; */
   padding: var(--space-6);
 }
 
@@ -72,6 +72,6 @@
 .metric-card__caption {
   color: var(--color-text-muted);
   font-size: var(--font-body);
-  margin-top: auto;
+  /* margin-top: auto; */
   padding: 0;
 }

@@ -68,10 +68,12 @@
           <tr *ngFor="let charge of rows()" hlmTr>
             <td hlmTd>
               <div class="customer-cell">
-                <span class="customer-cell__name">{{ charge.customerName }}</span>
+                <span [hlmTooltip]="charge.customerName" class="customer-cell__name inline-block max-w-full truncate align-bottom">{{ charge.customerName }}</span>
               </div>
             </td>
-            <td hlmTd class="charges-table__description">{{ charge.description }}</td>
+            <td hlmTd class="charges-table__description">
+              <span [hlmTooltip]="charge.description" class="inline-block max-w-full truncate align-bottom">{{ charge.description }}</span>
+            </td>
             <td hlmTd class="charges-table__amount">
               {{ charge.amount / 100 | currency: 'BRL' }}
             </td>
