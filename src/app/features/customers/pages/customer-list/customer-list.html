@@ -3,7 +3,7 @@
     <h2>Clientes</h2>
     <p>Consulte os clientes cadastrados para emitir cobranças.</p>
   </div>
-  <div *ngIf="errorMessage() as message" hlmAlert class="customer-list__error" variant="destructive">
+  <div *ngIf="errorMessage() as message" hlmAlert class="customer-list__error !border-destructive/30" variant="destructive">
     <p hlmAlertDescription>{{ message }}</p>
   </div>
   <section hlmCard class="customer-list__card">

@@ -10,11 +10,8 @@
     </a>
   </div>
 
-  <div *ngIf="errorMessage() as message" hlmAlert class="charge-list__error" variant="destructive">
+  <div *ngIf="errorMessage() as message" hlmAlert class="charge-list__error !border-destructive/30" variant="destructive">
     <p hlmAlertDescription>{{ message }}</p>
-    <button hlmBtn size="sm" type="button" variant="outline" (click)="loadCharges()">
-      Tentar novamente
-    </button>
   </div>
 
   <section hlmCard class="charge-list__table-card">
