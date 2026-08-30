@@ -10,7 +10,7 @@ export const routes: Routes = [
       import('./features/auth/pages/sign-in/sign-in').then(({ SignIn }) => SignIn),
     path: 'login',
     data: { description: 'Acesse sua conta para gerenciar cobranças e pagamentos.' },
-    title: 'Entrar | Teste Lytex',
+    title: 'Entrar | Desafio Lytex',
   },
   {
     canActivate: [guestGuard],
@@ -18,7 +18,7 @@ export const routes: Routes = [
       import('./features/auth/pages/sign-up/sign-up').then(({ SignUp }) => SignUp),
     path: 'register',
     data: { description: 'Crie sua conta para começar a emitir cobranças.' },
-    title: 'Criar conta | Teste Lytex',
+    title: 'Criar conta | Desafio Lytex',
   },
   { path: 'sign-in', pathMatch: 'full', redirectTo: 'login' },
   { path: 'sign-up', pathMatch: 'full', redirectTo: 'register' },
@@ -29,7 +29,7 @@ export const routes: Routes = [
       ),
     path: 'external/checkout/:id',
     data: { description: 'Realize o pagamento da sua cobrança de forma segura.' },
-    title: 'Pagamento | Teste Lytex',
+    title: 'Pagamento | Desafio Lytex',
   },
   {
     canActivate: [authGuard],
@@ -44,7 +44,7 @@ export const routes: Routes = [
             ({ Dashboard }) => Dashboard,
           ),
         path: 'dashboard',
-        title: 'Dashboard | Teste Lytex',
+        title: 'Dashboard | Desafio Lytex',
       },
       {
         loadChildren: () =>
@@ -61,7 +61,7 @@ export const routes: Routes = [
             ({ CustomerList }) => CustomerList,
           ),
         path: 'customers',
-        title: 'Clientes | Teste Lytex',
+        title: 'Clientes | Desafio Lytex',
       },
     ],
     loadComponent: () =>
