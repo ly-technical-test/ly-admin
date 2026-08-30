@@ -12,9 +12,6 @@ import { RouterLink } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   SolarAltArrowRightLinear,
-  SolarCheckCircleLinear,
-  SolarClockCircleLinear,
-  SolarWalletLinear,
 } from '@solar-icons/angular';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -33,6 +30,7 @@ import { Charge } from '../../../billing/models/charge.model';
 import { CustomersService } from '../../../customers/data-access/customers.service';
 import { Customer } from '../../../customers/models/customer.model';
 import { MetricCard } from '../../components/metric-card/metric-card';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 interface ChargeRow extends Charge {
   customerName: string;
@@ -51,10 +49,8 @@ interface ChargeRow extends Charge {
     HlmTableImports,
     MetricCard,
     RouterLink,
+    ...HlmTooltipImports,
     SolarAltArrowRightLinear,
-    SolarCheckCircleLinear,
-    SolarClockCircleLinear,
-    SolarWalletLinear,
   ],
   selector: 'app-dashboard',
   styleUrl: './dashboard.css',

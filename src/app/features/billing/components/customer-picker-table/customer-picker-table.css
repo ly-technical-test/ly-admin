@@ -62,3 +62,20 @@
   position: absolute;
   z-index: 1;
 }
+
+@media (max-width: 36rem) {
+  .customer-picker td {
+    padding-inline: var(--space-3);
+  }
+  .customer-picker__email {
+    display: block;
+    margin-left: 0;
+    margin-top: 0.125rem;
+  }
+  .customer-picker__footer {
+    flex-direction: column;
+    gap: var(--space-2);
+    text-align: center;
+  }
+}
+

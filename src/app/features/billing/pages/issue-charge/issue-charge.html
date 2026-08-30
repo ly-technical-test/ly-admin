@@ -42,14 +42,14 @@
 
         <form *ngIf="customerMode() === 'new'" class="form-card__content form-grid form-grid--customer"
           [formGroup]="customerForm" (ngSubmit)="saveCustomer()">
-          <app-form-field class="form-grid__full" inputId="customer-name" label="Nome completo ou razão social">
+          <app-form-field class="form-grid__full" inputId="customer-name" label="Nome completo ou razão social" mobileLabel="Nome">
             <div class="input-with-icon">
               <svg solarUserLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
                 id="customer-name" formControlName="name" />
             </div>
           </app-form-field>
           <app-form-field class="form-grid__document relative" inputId="customer-document" label="CPF ou CNPJ">
-            <div class="form-label-action absolute top-0 right-0">
+            <div *ngIf="isDev" class="form-label-action absolute top-0 right-0">
               <button class="cursor-pointer" type="button" (click)="generateCpf()">
                 Gerar CPF
               </button>
@@ -97,16 +97,16 @@
                 id="customer-number" formControlName="number" />
             </div>
           </app-form-field>
-          <app-form-field class="form-grid__zone" inputId="customer-zone" label="Bairro">
-            <div class="input-with-icon">
-              <svg solarMapLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
-                id="customer-zone" formControlName="zone" />
-            </div>
-          </app-form-field>
           <app-form-field class="form-grid__complement" inputId="customer-complement" label="Complemento">
             <div class="input-with-icon">
               <svg solarHomeLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
                 id="customer-complement" formControlName="complement" />
+            </div>
+          </app-form-field>
+          <app-form-field class="form-grid__zone" inputId="customer-zone" label="Bairro">
+            <div class="input-with-icon">
+              <svg solarMapLinear aria-hidden="true"></svg><input hlmInput class="app-input app-input--leading"
+                id="customer-zone" formControlName="zone" />
             </div>
           </app-form-field>
           <div class="form-grid__action">

@@ -195,9 +195,20 @@
     position: static;
   }
 }
-@media (max-width: 40rem) {
+@media (max-width: 48rem) {
   .form-grid {
     grid-template-columns: 1fr;
+  }
+  .form-grid--customer {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .form-grid--customer > div,
+  .form-grid--customer > app-form-field {
+    grid-column: 1 / -1;
+  }
+  .form-grid__number,
+  .form-grid__complement {
+    grid-column: span 1 !important;
   }
   .payment-methods {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -208,4 +219,15 @@
   .mode-switch button {
     flex: 1;
   }
+  .form-card,
+  .summary-card {
+    padding: var(--space-4);
+  }
 }
+
+@media (max-width: 28rem) {
+  .payment-methods {
+    grid-template-columns: 1fr;
+  }
+}
+

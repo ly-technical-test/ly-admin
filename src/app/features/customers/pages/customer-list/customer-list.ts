@@ -13,6 +13,7 @@ import { catchError, debounceTime, distinctUntilChanged, map, merge, of, startWi
 import { ErrorMessageService } from '../../../../core/errors/error-message.service';
 import { CustomersService } from '../../data-access/customers.service';
 import { Customer } from '../../models/customer.model';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,6 +27,7 @@ import { Customer } from '../../models/customer.model';
     HlmSpinner,
     HlmTableImports,
     ReactiveFormsModule,
+    HlmTooltipImports,
     SolarMagnifierLinear,
     SolarAltArrowLeftLinear,
     SolarAltArrowRightLinear,

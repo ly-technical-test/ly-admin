@@ -6,6 +6,7 @@ export interface Charge {
   description: string;
   lytexHashId: string;
   lytexId: string;
+  linkBoleto?: string;
   linkCheckout: string;
   paymentMethod: string;
   status: string;

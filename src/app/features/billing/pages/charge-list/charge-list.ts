@@ -9,12 +9,15 @@ import {
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { toast } from 'ngx-sonner';
 import {
   SolarCopyLinear,
   SolarCheckCircleLinear,
   SolarAltArrowLeftLinear,
   SolarAltArrowRightLinear,
   SolarMagnifierLinear,
+  SolarAddCircleLinear,
 } from '@solar-icons/angular';
 import { HlmAlert, HlmAlertDescription } from '@spartan-ng/helm/alert';
 import { HlmBadge } from '@spartan-ng/helm/badge';
@@ -31,6 +34,7 @@ import { CustomersService } from '../../../customers/data-access/customers.servi
 import { Customer } from '../../../customers/models/customer.model';
 import { BillingService } from '../../data-access/billing.service';
 import { Charge } from '../../models/charge.model';
+import { HlmTooltipImports } from '@spartan-ng/helm/tooltip';
 
 type ChargeFilter = 'all' | 'paid' | 'pending';
 
@@ -42,6 +46,7 @@ interface ChargeRow extends Charge {
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [
     CommonModule,
+    RouterLink,
     HlmAlert,
     HlmAlertDescription,
     HlmBadge,
@@ -51,11 +56,13 @@ interface ChargeRow extends Charge {
     HlmSpinner,
     HlmTableImports,
     ReactiveFormsModule,
+    ...HlmTooltipImports,
     SolarCopyLinear,
     SolarCheckCircleLinear,
     SolarAltArrowLeftLinear,
     SolarAltArrowRightLinear,
     SolarMagnifierLinear,
+    SolarAddCircleLinear,
   ],
   selector: 'app-charge-list',
   styleUrl: './charge-list.css',
@@ -166,6 +173,7 @@ export class ChargeList {
   async copyPaymentLink(charge: Charge): Promise<void> {
     await navigator.clipboard.writeText(this.checkoutPreferencesService.getCheckoutLink(charge));
     this.copiedChargeId.set(charge._id);
+    toast.success('Link de cobrança copiado para a área de transferência.');
     window.setTimeout(() => this.copiedChargeId.set(null), 1000);
   }
 }

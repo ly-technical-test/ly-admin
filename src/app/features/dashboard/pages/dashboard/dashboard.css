@@ -131,16 +131,21 @@
   vertical-align: middle;
 }
 
-@media (max-width: 70rem) {
+@media (max-width: 64rem) {
   .metrics {
-    grid-template-columns: 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
-@media (max-width: 58rem) {
+@media (max-width: 48rem) {
+  .metrics {
+    grid-template-columns: 1fr;
+  }
+
   .recent-charges__header {
     align-items: stretch;
     flex-direction: column;
+    padding: var(--space-4);
   }
 
   .charges-table__description,
@@ -157,10 +162,11 @@
 
   .charges-table th,
   .charges-table td {
-    padding-inline: var(--space-4);
+    padding-inline: var(--space-3);
   }
 
   .charges-table__method {
     display: none;
   }
 }
+

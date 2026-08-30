@@ -18,3 +18,18 @@
   font-size: var(--font-caption);
   line-height: 1.4;
 }
+
+@media (max-width: 48rem) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .show-mobile {
+    display: inline !important;
+  }
+}
+
+@media (min-width: 48.01rem) {
+  .show-mobile {
+    display: none !important;
+  }
+}

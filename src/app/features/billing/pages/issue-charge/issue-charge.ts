@@ -36,6 +36,7 @@ import { AddressService } from '../../../customers/data-access/address.service';
 import { CustomersService } from '../../../customers/data-access/customers.service';
 import { CreateCustomerPayload, Customer } from '../../../customers/models/customer.model';
 import { BillingService } from '../../data-access/billing.service';
+import { environment } from '../../../../../environments/environment';
 import { CustomerPickerTable } from '../../components/customer-picker-table/customer-picker-table';
 import { IssueChargePayload } from '../../models/charge.model';
 
@@ -97,6 +98,7 @@ export class IssueCharge {
   private readonly errorMessageService = inject(ErrorMessageService);
   private readonly router = inject(Router);
 
+  readonly isDev = !environment.production;
   readonly customers = signal<Customer[]>([]);
   readonly customersLoading = signal(false);
   readonly customerPage = signal(1);
