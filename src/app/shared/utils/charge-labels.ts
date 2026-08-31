@@ -3,6 +3,7 @@ export function getPaymentMethodLabel(method: string): string {
     all: 'Todos',
     boleto: 'Boleto',
     cartao: 'Cartão',
+    creditCard: 'Cartão',
     pix: 'PIX',
   };
 
